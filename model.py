@@ -20,7 +20,7 @@ class User(db.Model):
     user_favorites = db.relationship("UserFavorites", back_populates="user")
 
     def __repr__(self):
-        return f'User User: {self.user_id} username: {self.username}'
+        return f'User User_id:{self.user_id} username:{self.username}'
 
 class Articles(db.Model):
     """Articles of clothing"""
@@ -43,7 +43,7 @@ class Articles(db.Model):
     outfit_articles = db.relationship("OutfitArticles", back_populates="articles")
 
     def __repr__(self):
-        return f'Articles Article: {self.article_id} type: {self.type}'
+        return f'Articles Article_id: {self.article_id} type: {self.type}'
 
 class Outfit(db.Model):
     """"""
@@ -61,7 +61,7 @@ class Outfit(db.Model):
     user_fav = db.relationship("UserFavorites", back_populates="outfits")
 
     def __repr__(self):
-        return f'Outfit Outfit: {self.outfit_id} User: {self.user_id}'
+        return f'Outfit Outfit_id: {self.outfit_id} User: {self.user_id}'
 
 class OutfitArticles(db.Model):
 
@@ -77,7 +77,7 @@ class OutfitArticles(db.Model):
     outfit = db.relationship("Outfit", back_populates="outfit_articles")
     
     def __repr__(self):
-        return f'Outfit_Articles Article: {self.article_id} Outfit Id: {self.outfit_id}'
+        return f'Outfit_Articles Article_id: {self.article_id} Outfit Id: {self.outfit_id}'
 
 class UserFavorites(db.Model):
 

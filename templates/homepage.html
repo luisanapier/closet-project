@@ -9,8 +9,9 @@
 
     <h1>Welcome!</h1>
     
-    <div id="signup">
-        <div>Create an account</div>
+    <form action="/register", method="POST">
+    <div id="create_account">
+        <p>Create an account</p>
         <label for="username">Username: </label>
         <input id="username" type="text" name="username" required/>
         <label for="name">Name: </label>
@@ -19,7 +20,22 @@
         <input id="email" type="text" name="email" required/>
         <label for="password">Password: </label>
         <input id="password" type="text" name="password" required/>
+
+        <button id="signup" type="submit">Create account</button>
+    </div>
+    </form>
+    
+    <div id="login">
+        <p>If you already have an account, <a href="/login">log in.</a></p>
     </div>
 
-    <p></p>
+    <form action="/login">
+        <p>Log in</p>
+        <label for="username">Username: </label>
+        <input id="username" type="text" name="username" required/>
+        <label for="password">Password: </label>
+        <input id="password" type="text" name="password" required/>
+
+        <button id="login" type="submit">Log in</button>
+    </form>
 </body>
