@@ -1,11 +1,10 @@
-<html>
-<head>
-    <title>Attire Closet</title>
-    <link rel="stylesheet" href="/static/css/attire.css"/>
-</head>
-</html>
+{% extends 'base.html' %}
 
-<body>
+
+    {% block title %} Attire Closet {% endblock %}
+
+
+{% block body %}
 
     <h1>Welcome!</h1>
     
@@ -38,4 +37,4 @@
 
         <button id="login" type="submit">Log in</button>
     </form>
-</body>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+    {% block title %} {{ username }} closet {% endblock %} 
+
+
+{% block body %}
+
+    <h1>See everything that's in your closet:</h1>
+
+    <p> Add more pieces! </p>
+        <label for="file">Select a file: </label>
+        <input type="file" id="additem" name="additem" multiple/>
+    
+
+{% endblock %}
