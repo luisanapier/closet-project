@@ -1,14 +1,24 @@
-from flask import (Flask, render_template, redirect, request)
+from flask import Flask, render_template, redirect, request, session
 from model import connect_to_db, db
 import crud
+import cloudinary.uploader
+import os
+
+CLOUDINARY_KEY = [os.environ["API_KEY"]]
+CLOUDINARY_SECRET = os.environ["API_SECRET"]
+CLOUD_NAME = os.environ["CLOUD_NAME"]
 
 app = Flask(__name__)
+app.secret_key="DEV"
 
 
 @app.route('/')
 def homepage():
     
-    return render_template("homepage.html")
+    if session:
+        return render_template['closet.html']
+    else:
+        return render_template("homepage.html")
 
 @app.route('/login')
 def login():
@@ -17,9 +27,10 @@ def login():
     password = request.args.get("password")
 
     user = crud.check_user(username) 
+    name = user.name
     if user:
         if password == user.password:
-            return render_template('closet.html', username=username)
+            return render_template('closet.html', name=name)
         else:
             return redirect('/login')
     else:
@@ -43,9 +54,20 @@ def register():
         return render_template('closet.html', username=username)
 
     
+@app.route('/upload-file', methods=["POST"])
+def show_form():
+    file = request.files['additem'] 
+    result = cloudinary.uploader.upload(file,
+                        api_key=CLOUDINARY_KEY,
+                        api_secret=CLOUDINARY_SECRET,
+                        cloud_name=CLOUD_NAME)
+    img_url = result['secure_url']
+
+    return render_template('closet.html', img_url=img_url)
+
+
 @app.route('/closet')
 def show_closet():
-
 
 
     crud.add_articles(type=type, resource_url=resource_url,

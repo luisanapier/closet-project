@@ -1,15 +1,40 @@
 {% extends 'base.html' %}
 
-    {% block title %} {{ username }} closet {% endblock %} 
+    {% block title %} {{ username }}'s closet {% endblock %} 
 
 
 {% block body %}
 
     <h1>See everything that's in your closet:</h1>
 
-    <p> Add more pieces! </p>
-        <label for="file">Select a file: </label>
+    <form action="/upload-file" method="post" enctype="multipart/form-data">
+        <p> Add more pieces! </p>
+        <div>
+        <label for="additem">Select a file: </label>
         <input type="file" id="additem" name="additem" multiple/>
-    
+        </div>
+        <div id="new_item_info">
+            <label for="type">Type: </label>
+            <input id="type" type="text" name="type" required/>
+
+            <label for="color_primary">Primary color: </label>
+            <input id="color_primary" type="text" name="color_primary" required/>
+
+            <label for="color_sec">Secondary color: </label>
+            <input id="color_sec" type="text" name="color_sec"/>
+
+            <label for="pattern">Pattern: </label>
+            <input id="pattern" type="text" name="pattern"/>
+
+            <label for="occasion">Occasion: </label>
+            <input id="occasion" type="text" name="occasion" required/>
+
+            <label for="season">Season: </label>
+            <input id="season" type="text" name="season" required/>
+        
+        
+        <input type="submit"> 
+        </div>
+    </form>
 
 {% endblock %}
