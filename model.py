@@ -25,8 +25,6 @@ class User(db.Model):
 class Articles(db.Model):
     """Articles of clothing"""
 
-    __tablename__ = "articles"
-
     article_id = db.Column(db.Integer,
                            autoincrement=True,
                            primary_key=True)
@@ -96,7 +94,7 @@ class UserFavorites(db.Model):
         return f'User_favorites Outfit Id: {self.outfit_id} User: {self.user_id}'
     
 
-def connect_to_db(flask_app, db_uri="postgresql:///attires", echo=True):
+def connect_to_db(flask_app, db_uri="postgresql:///attires", echo=False):
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
     flask_app.config["SQLALCHEMY_ECHO"] = echo
     flask_app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -104,7 +102,6 @@ def connect_to_db(flask_app, db_uri="postgresql:///attires", echo=True):
     db.app = flask_app
     db.init_app(flask_app)
 
-    print("Connected to the db! :)")
 
 
 if __name__ == "__main__":

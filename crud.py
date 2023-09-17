@@ -48,10 +48,8 @@ def user_favorite(outfit_id, user_id):
 
 def check_user(username):
 
-    is_user = User.query.filter(User.username == username).first()
-
-    return is_user
-
+    user = User.query.filter(User.username == username).first()
+    return user
 
 if __name__ == '__main__':
     from server import app

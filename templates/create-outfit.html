@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+    {% block title %} Create outfit {% endblock %}
+
+{% block body %}
+<div id="create-outfit-form">
+    <h1>Let's create an outfit! </h1>
+    <form id="create-outfit" action="/create-outfit" method="POST">
+        <div class="create_outfit">
+        <label for="user_occasion">What's the occasion? </label>
+        <select id="user_occasion" name="user_occasion" required>
+            <option value="everyday">Everyday</option>
+            <option value="formal">Formal</option>
+            <option value="semi-formal">Semi-Formal</option>
+            <option value="business">Business</option>
+            <option value="business-casual">Business Casual</option>
+        </select>
+        </div>
+         <div class="create_outfit">
+        <label for="current_season">Season: </label>
+        <select id="current_season" name="current_season" required>
+            <option value="spring">Spring</option>
+            <option value="summer">Summer</option>
+            <option value="fall">Fall</option>
+            <option value="winter">Winter</option>
+            <option value="all">All</option>
+        </select>
+        <label for="add-color">Color: </label>
+        <input id="add-color" type="text" name="add-color">
+        <input id="user_wants_hat" type="checkbox" name="user_wants_hat">
+        <label for="user_wants_hat">Include Hats</label>
+        <input id="user_wants_bags" type="checkbox" name="user_wants_bags">
+        <label for="user_wants_bags">Include Bags</label>
+        <input id="user_wants_glasses" type="checkbox" name="user_wants_glasses">
+        <label for="user_wants_glasses">Include Glasses</label>
+        </div>
+        <div class="create_outfit">
+        <label for="type-outfit">Please choose how you would like to build an outfit: </label>
+        <select id="type-outfit" name="type-outfit" required>
+            <option value="shirt-pants">Shirt/Pants</option>
+            <option value="shirt-skirt">Shirt/Skirt</option>
+            <option value="dress">Dress</option>
+        </select>
+        </div>
+        <div>
+        <label for="outfit_title">What title would you like to give to this outfit? </label>
+        <input id="outfit_title" type="text" name="outfit_title" required>
+        </div>
+        <p>
+        <button id="generate_outfit" type="submit">Create outfit</button>
+        </p>
+    </form>
+</div>
+
+    <div id="outfit-viewer">
+        <input type="button" value="Try another option" id="generate-other-outfit-button" style="display:none"/>    
+        <form id="favorite-outfit" action="/favorites" method="POST">
+            <input type="button" value="Favorite" id="favorite-outfit-button" hidden/>
+        </form>
+    </div>
+    
+    <script src="static/create-outfit.js"></script>
+{% endblock %}

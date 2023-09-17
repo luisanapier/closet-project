@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
 
-    {% block title %} {{ username }}'s closet {% endblock %} 
-
+    {% block title %} {{ name }}'s closet {% endblock %} 
 
 {% block body %}
 
     <h1>See everything that's in your closet:</h1>
+    <div id="articles">
+        {% for article_item in article_items %}
+           <img width="200px" src="{{ article_item.resource_url }}"/>
+        {% endfor %}
+    </div>
+
 
     <form action="/upload-file" method="post" enctype="multipart/form-data">
         <p> Add more pieces! </p>
@@ -15,8 +20,18 @@
         </div>
         <div id="new_item_info">
             <label for="type">Type: </label>
-            <input id="type" type="text" name="type" required/>
-
+            <select id="type" name="type" required>
+                <option value="shirt">shirt</option>
+                <option value="skirt">skirt</option>
+                <option value="pants">pants</option>
+                <option value="sweater">sweater</option>
+                <option value="jacket">jacket</option>
+                <option value="dress">dress</option>
+                <option value="shoes">shoes</option>
+                <option value="hat">hat</option>
+                <option value="bag">bag</option>
+                <option value="glasses">glasses</option>
+            </select>
             <label for="color_primary">Primary color: </label>
             <input id="color_primary" type="text" name="color_primary" required/>
 
@@ -27,14 +42,26 @@
             <input id="pattern" type="text" name="pattern"/>
 
             <label for="occasion">Occasion: </label>
-            <input id="occasion" type="text" name="occasion" required/>
-
+            <select id="occasion" name="occasion" required>
+                <option value="everyday">everyday</option>
+                <option value="formal">Formal</option>
+                <option value="semi-formal">Semi-Formal</option>
+                <option value="business">Business</option>
+                <option value="business-casual">Business Casual</option>
+            </select>
             <label for="season">Season: </label>
-            <input id="season" type="text" name="season" required/>
-        
-        
+            <select id="season" name="season" required>
+                <option value="spring">spring</option>
+                <option value="summer">summer</option>
+                <option value="fall">fall</option>
+                <option value="winter">winter</option>
+                <option value="all">all</option> 
+            </select>   
         <input type="submit"> 
         </div>
     </form>
+    <div id="build-outfit">
+        <p><a href="/create-outfit">Create outfit.</a></p>
+    </div>
 
 {% endblock %}
