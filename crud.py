@@ -51,6 +51,12 @@ def check_user(username):
     user = User.query.filter(User.username == username).first()
     return user
 
+def return_outfit_article(article_id):
+    item = Articles.query.get(article_id)
+    return item
+
+
+
 if __name__ == '__main__':
     from server import app
     connect_to_db(app)

@@ -1,5 +1,7 @@
+from collections import defaultdict, OrderedDict
 from flask import Flask, render_template, redirect, request, session, jsonify
-from model import Articles, connect_to_db
+from model import Articles, connect_to_db, UserFavorites
+
 import crud
 import os
 import cloudinary
@@ -21,6 +23,21 @@ cloudinary.config(
 )
 import cloudinary.uploader
 import cloudinary.api
+
+
+ARTICLE_ORDER = {
+    'hat': 0, 
+    'glasses': 1,
+    'bag': 2, 
+    'jacket': 3, 
+    'sweater': 4, 
+    'dress': 5, 
+    'shirt': 6,
+    'pants': 7, 
+    'skirt': 8, 
+    'shoes': 9,
+}
+
 
 @app.route('/')
 def homepage():
@@ -170,108 +187,109 @@ def show_outfit():
     hats = articles.get("hat")
     bags = articles.get("bag")
     glasses = articles.get("glasses")
-   
 
-    hat = ""
-    bag = ""
-    glass = ""
-    shirt = ""
-    skirt = ""
-    pant = ""
-    dress = ""
-    shoe = ""
-    sweater = ""
-    jacket = ""
+    result = defaultdict(dict)
 
     if user_wants_hat == True:
 
         if hats:
             hat = random.choice(hats)
             crud.outfit_articles(hat.article_id, outfit.outfit_id)
-            hat = hat.resource_url
+            result['hat']['url'] = hat.resource_url
+            result['hat']['id'] = hat.article_id
 
     if user_wants_bags == True:
 
         if bags:
             bag = random.choice(bags)
             crud.outfit_articles(bag.article_id, outfit.outfit_id)
-            bag = bag.resource_url
+            result['bag']['url'] = bag.resource_url
+            result['bag']['id'] = bag.article_id
+
     if user_wants_glasses == True:
         
         if glasses:
             glass = random.choice(glasses)
             crud.outfit_articles(glass.article_id, outfit.outfit_id)
-            glasses = glass.resource_url
-
+            result['glasses']['url'] = glass.resource_url
+            result['glasses']['id'] = glass.article_id
 
     if type_of_outfit == "shirt-pants": 
         if shirts:
             shirt = random.choice(shirts)
             crud.outfit_articles(shirt.article_id, outfit.outfit_id)
-            shirt = shirt.resource_url
+            result['shirt']['url'] = shirt.resource_url
+            result['shirt']['id'] = shirt.article_id
             if current_season=="winter" or current_season == "fall":
                 sweater = random.choice(sweaters)
                 jacket = random.choice(jackets)
                 crud.outfit_articles(sweater.article_id, outfit.outfit_id)
                 crud.outfit_articles(jacket.article_id, outfit.outfit_id)
-                jacket = jacket.resource_url
-                sweater = sweater.resource_url
+                result['jacket']['url'] = jacket.resource_url
+                result['jacket']['id'] = jacket.article_id
+                result['sweater']['url'] = sweater.resource_url
+                result['sweater']['id'] = sweater.article_id
+                
         if pants:
             pant = random.choice(pants)
             crud.outfit_articles(pant.article_id, outfit.outfit_id)
-            pant = pant.resource_url
+            result['pants']['url'] = pant.resource_url
+            result['pants']['id'] = pant.article_id
     elif type_of_outfit == "shirt-skirt":
         if shirts:
             shirt = random.choice(shirts)
             crud.outfit_articles(shirt.article_id, outfit.outfit_id)
-            shirt = shirt.resource_url
+            result['shirt']['url'] = shirt.resource_url
+            result['shirt']['id'] = shirt.article_id
             if current_season=="winter" or current_season == "fall":
                 sweater = random.choice(sweaters)
                 sweater = sweater.resource_url
                 crud.outfit_articles(sweater.article_id, outfit.outfit_id)
                 crud.outfit_articles(jacket.article_id, outfit.outfit_id)
                 jacket = random.choice(jackets)
-                jacket = jacket.resource_url
+                result['jacket']['url'] = jacket.resource_url
+                result['jacket']['id'] = jacket.article_id
         if skirts:
             skirt = random.choice(skirt)
             crud.outfit_articles(skirt.article_id, outfit.outfit_id)
-            skirt = skirt.resource_url
+            result['skirt']['url'] = skirt.resource_url
+            result['skirt']['id'] = skirt.article_id
     else: 
         if dresses:
             dress = random.choice(dresses)
             crud.outfit_articles(dress.article_id, outfit.outfit_id)
-            dress = dress.resource_url
+            result['dress']['url'] = dress.resource_url
+            result['dress']['id'] = dress.article_id
     
     if shoes:
         shoe = random.choice(shoes)
         crud.outfit_articles(shoe.article_id, outfit.outfit_id)
-        shoe = shoe.resource_url
-    
-    
-    return jsonify({
-        "hat": hat,
-        "bag": bag,
-        "glasses": glasses,
-        "shirt": shirt,
-        "pants": pant,
-        "skirt": skirt,
-        "dresses": dress,
-        "shoes": shoe,
-        "sweater": sweater,
-        "jacket": jacket
-    })
+        result['shoes']['url'] = shoe.resource_url
+        result['shoes']['id'] = shoe.article_id
+        
+    return jsonify(sorted(result.items(), key=lambda x: ARTICLE_ORDER.get(x[0], 0)))
+
+@app.route('/favorite-elements', methods=["POST"])
+def get_elements():
+    items = [request.json.get("0", None)]
+    article = crud.return_outfit_article(int(items[0]))
+
+    outfit_id = (article.outfit_articles[-1].outfit_id)
+
+    crud.user_favorite(outfit_id=outfit_id, user_id=session['user']['id'])
+
+    return jsonify("success")
+
 
 
 @app.route('/favorites', methods=["GET","POST"])
 def show_favorites():
-    user_in_session()
-
-    get_outfit = request.form("#favorite-outfit")
-    print(get_outfit)
-    print("********************")
+    fav_outfits = UserFavorites.query.filter(UserFavorites.user_id==session['user']['id']).all()
+    print(fav_outfits)
     
-    # crud.user_favorite(outfit_id=outfit_id, user_id=user_id)
     return render_template('favorites.html')
+
+
 
 def user_in_session():
     if "user" not in session:

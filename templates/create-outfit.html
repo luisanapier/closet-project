@@ -48,15 +48,12 @@
         </div>
         <p>
         <button id="generate_outfit" type="submit">Create outfit</button>
+        <input type="button" value="Try another option" id="generate-other-outfit-button" style="display:none"/> 
         </p>
     </form>
 </div>
 
     <div id="outfit-viewer">
-        <input type="button" value="Try another option" id="generate-other-outfit-button" style="display:none"/>    
-        <form id="favorite-outfit" action="/favorites" method="POST">
-            <input type="button" value="Favorite" id="favorite-outfit-button" hidden/>
-        </form>
     </div>
     
     <script src="static/create-outfit.js"></script>

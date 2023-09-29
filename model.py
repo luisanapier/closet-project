@@ -85,7 +85,7 @@ class UserFavorites(db.Model):
                               autoincrement=True,
                               primary_key=True)
     outfit_id = db.Column(db.Integer, db.ForeignKey('outfit.outfit_id'), nullable=False)
-    user_id = user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
 
     outfits = db.relationship("Outfit", back_populates="user_fav")
     user = db.relationship("User", back_populates="user_favorites")
