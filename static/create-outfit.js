@@ -58,11 +58,12 @@ function handleClick(evt) {
                 evt.preventDefault();
     
                 const imgElements = document.getElementById("outfit-viewer");
+                
                 let listImgs = {};
 
                 listImgs[0] = imgElements.firstChild.firstChild.getAttribute('data-id');
 
-                })
+
                 fetch('/favorite-elements', {
                     method: 'POST',
                     body: JSON.stringify(listImgs),
@@ -74,5 +75,6 @@ function handleClick(evt) {
                 .then((responseImgs) => {
                     alert("Successfully added to your favs!");
                 });
+            })
         });
         };

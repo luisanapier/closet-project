@@ -139,7 +139,6 @@ def show_outfit():
     current_season = request.json.get("season")
     color_option = request.json.get("color")
     title = request.json.get("title")
-        # query for "accessories"
     user_wants_hat = request.json.get("wantHat")
     user_wants_glasses = request.json.get("wantGlasses")
     user_wants_bags = request.json.get("wantBag")
@@ -284,10 +283,13 @@ def get_elements():
 
 @app.route('/favorites', methods=["GET","POST"])
 def show_favorites():
-    fav_outfits = UserFavorites.query.filter(UserFavorites.user_id==session['user']['id']).all()
-    print(fav_outfits)
+    query_favorites = UserFavorites.query.filter(UserFavorites.user_id==session['user']['id']).all()
+
+    for item in query_favorites:
+        print(item.outfits.outfit_articles.articles)
+    print(query_favorites)
     
-    return render_template('favorites.html')
+    return render_template('favorites.html', fav_outfits=query_favorites)
 
 
 
