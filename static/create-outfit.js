@@ -28,7 +28,7 @@ function handleClick(evt) {
     })
     .then((response) => response.json())
     .then((responseJson) => {
-        // clear out the previous options if any
+        
         document.querySelector('#outfit-viewer').innerHTML = '';
         
         if (responseJson.length === 0) {
@@ -49,32 +49,36 @@ function handleClick(evt) {
             document.querySelector('input#generate-other-outfit-button').style.display = "block";
             // // If you want to remove the form when results are shown
             // document.querySelector('#create-outfit-form').style.display = 'none';
+            let favoriteOutfitButton = document.querySelector('#favorite-outfit-button');
+            if (!favoriteOutfitButton) {
             document.querySelector('#outfit-viewer').insertAdjacentHTML(
                 'beforebegin',
                 '<form id="favorite-outfit" action="/favorites" method="POST"><button value="Favorite" id="favorite-outfit-button"> Favorite </button></form>'
                 );
-            const favoriteOutfitButton = document.querySelector('#favorite-outfit-button');
-            favoriteOutfitButton.addEventListener('click', (evt) => {
-                evt.preventDefault();
-    
-                const imgElements = document.getElementById("outfit-viewer");
-                
-                let listImgs = {};
+            let favoriteOutfitButton = document.querySelector('#favorite-outfit-button');
 
-                listImgs[0] = imgElements.firstChild.firstChild.getAttribute('data-id');
+                favoriteOutfitButton.addEventListener('click', (evt) => {
+                    evt.preventDefault();
+        
+                    const imgElements = document.getElementById("outfit-viewer");
+                    
+                    let listImgs = {};
+
+                    listImgs[0] = imgElements.firstChild.firstChild.getAttribute('data-id');
 
 
-                fetch('/favorite-elements', {
-                    method: 'POST',
-                    body: JSON.stringify(listImgs),
-                    headers: {
-                        'Content-type': 'application/json',
-                    },
+                    fetch('/favorite-elements', {
+                        method: 'POST',
+                        body: JSON.stringify(listImgs),
+                        headers: {
+                            'Content-type': 'application/json',
+                        },
+                    })
+                    .then((response) => response.json())
+                    .then((responseImgs) => {
+                        alert("Successfully added to your favs!");
+                    });
                 })
-                .then((response) => response.json())
-                .then((responseImgs) => {
-                    alert("Successfully added to your favs!");
-                });
-            })
+            };
         });
         };

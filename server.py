@@ -275,6 +275,8 @@ def get_elements():
 
     outfit_id = (article.outfit_articles[-1].outfit_id)
 
+    crud.check_favorite(outfit_id=outfit_id, user_id=session['user']['id'])
+
     crud.user_favorite(outfit_id=outfit_id, user_id=session['user']['id'])
 
     return jsonify("success")
@@ -285,11 +287,14 @@ def get_elements():
 def show_favorites():
     query_favorites = UserFavorites.query.filter(UserFavorites.user_id==session['user']['id']).all()
 
+    fav_dict = {}
+
     for item in query_favorites:
-        print(item.outfits.outfit_articles.articles)
-    print(query_favorites)
+        fav_dict[(item.outfit_id, item.outfits.title)] = item.outfits.outfit_articles
+
+        #     article.articles
     
-    return render_template('favorites.html', fav_outfits=query_favorites)
+    return render_template('favorites.html', fav_dict=fav_dict)
 
 
 

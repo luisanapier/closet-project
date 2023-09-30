@@ -7,8 +7,11 @@
     <h1>See all your favorite outfits</h1>
 
     <div id="favorite-outfits">
-        {% for outfit in fav_outfits %}
-            <img width="200px" src="{{ outfit.resource_url }}"/>
+        {% for key, value in fav_dict.items() %}
+            <h3>{{ key[1] }}</h3>
+            {% for outfit in value %}
+                <img width="200px" src="{{ outfit.articles.resource_url }}">
+            {% endfor %}
         {% endfor %}
     </div>
 

@@ -55,6 +55,12 @@ def return_outfit_article(article_id):
     item = Articles.query.get(article_id)
     return item
 
+def check_favorite(outfit_id, user_id):
+
+    is_favorite = UserFavorites(outfit_id=outfit_id, user_id=user_id)
+    if is_favorite: 
+        return "This outfit has already been added to favorites"
+
 
 
 if __name__ == '__main__':
