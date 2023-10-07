@@ -2,11 +2,14 @@
 
 const createOutfitButton = document.querySelector("#generate_outfit");
 createOutfitButton.addEventListener('click', handleClick);
+
 const generateAnotherOutfitButton = document.querySelector('input#generate-other-outfit-button');
 generateAnotherOutfitButton.addEventListener('click', handleClick);
 
 function handleClick(evt) {
     evt.preventDefault();
+    
+    
     
     const formInputs = {
         occasion: document.querySelector('#user_occasion').value,
@@ -32,7 +35,7 @@ function handleClick(evt) {
         document.querySelector('#outfit-viewer').innerHTML = '';
         
         if (responseJson.length === 0) {
-            alert("No items in your closet that matches this search. Try again.");
+            alert("No items in your closet that matches this search. Try adding more pieces to your closet!");
         };
         
         responseJson.forEach(([item, data]) => {
@@ -46,39 +49,41 @@ function handleClick(evt) {
                 );
             });
             
+            createOutfitButton.innerHTML == "Try another option";
+            
             document.querySelector('input#generate-other-outfit-button').style.display = "block";
             // // If you want to remove the form when results are shown
             // document.querySelector('#create-outfit-form').style.display = 'none';
             let favoriteOutfitButton = document.querySelector('#favorite-outfit-button');
             if (!favoriteOutfitButton) {
-            document.querySelector('#outfit-viewer').insertAdjacentHTML(
-                'beforebegin',
-                '<form id="favorite-outfit" action="/favorites" method="POST"><button value="Favorite" id="favorite-outfit-button"> Favorite </button></form>'
-                );
-            let favoriteOutfitButton = document.querySelector('#favorite-outfit-button');
-
-                favoriteOutfitButton.addEventListener('click', (evt) => {
-                    evt.preventDefault();
-        
-                    const imgElements = document.getElementById("outfit-viewer");
+                document.querySelector('#outfit-viewer').insertAdjacentHTML(
+                    'beforebegin',
+                    '<form id="favorite-outfit" action="/favorites" method="POST"><button class="buttons" value="Favorite" id="favorite-outfit-button"> FAVORITE </button></form>'
+                    );
+                    let favoriteOutfitButton = document.querySelector('#favorite-outfit-button');
                     
-                    let listImgs = {};
-
-                    listImgs[0] = imgElements.firstChild.firstChild.getAttribute('data-id');
-
-
-                    fetch('/favorite-elements', {
-                        method: 'POST',
-                        body: JSON.stringify(listImgs),
-                        headers: {
-                            'Content-type': 'application/json',
-                        },
+                    favoriteOutfitButton.addEventListener('click', (evt) => {
+                        evt.preventDefault();
+                        
+                        const imgElements = document.getElementById("outfit-viewer");
+                        
+                        let listImgs = {};
+                        
+                        listImgs[0] = imgElements.firstChild.firstChild.getAttribute('data-id');
+                        
+                        
+                        fetch('/favorite-elements', {
+                            method: 'POST',
+                            body: JSON.stringify(listImgs),
+                            headers: {
+                                'Content-type': 'application/json',
+                            },
+                        })
+                        .then((response) => response.json())
+                        .then((responseImgs) => {
+                            alert("Successfully added to your favs!");
+                        });
                     })
-                    .then((response) => response.json())
-                    .then((responseImgs) => {
-                        alert("Successfully added to your favs!");
-                    });
-                })
-            };
-        });
+                };
+            });
         };

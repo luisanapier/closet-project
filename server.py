@@ -7,6 +7,7 @@ import os
 import cloudinary
 import random
 
+
 CLOUDINARY_KEY = "672335896611927"
 CLOUDINARY_SECRET = "wijc7z2ohAnkXMwj6yZY8FbpNv0"
 CLOUD_NAME = "drf73nnrz"
@@ -45,14 +46,44 @@ def homepage():
         return redirect("/closet")
     else:
         return render_template("homepage.html")
+    
 
-@app.route('/login')
+@app.route('/register', methods=["POST"])
+def register():
+
+    username = request.form.get("username")
+    name = request.form.get("name")
+    email = request.form.get("email")
+    password = request.form.get("password")
+    username_exists = crud.check_user(username)
+
+    if username == username_exists:
+        print("Username already exists, please try a different one.")
+        return redirect('/')
+    else:
+        crud.create_user(email=email, username=username, password=password, name=name)
+        user = crud.check_user(username)
+        session["user"] = {
+                'id': user.user_id,
+                'name': user.name
+            }
+        return render_template('closet.html', username=username)
+
+
+@app.route('/login', methods=["GET", "POST"])
 def login():
 
-    username = request.args.get("username")
-    password = request.args.get("password")
+    if request.method == "GET":
+        return render_template("login.html")
+
+    username = request.form.get("username")
+    password = request.form.get("password")
+    print(username, password)
+    print("*********************")
 
     user = crud.check_user(username) 
+    print(user)
+    print("&&&&&&&&&&&")
     
     if user:
         if password == user.password:
@@ -64,24 +95,8 @@ def login():
         else:
             return redirect('/login')
     else:
-        print("Username or password doesn't match. Try again")
-    
+        return redirect("/login")
 
-@app.route('/register', methods=["POST"])
-def register():
-
-    username = request.form.get("username")
-    name = request.form.get("name")
-    email = request.form.get("email")
-    password = request.form.get("password")
-
-    username_exists = crud.check_user(username)
-    if username == username_exists.username:
-        print("Username already exists, please try a different one.")
-        return redirect('/register')
-    else:
-        crud.create_user(email=email, username=username, password=password, name=name)
-        return render_template('closet.html', username=username)
 
 @app.route('/upload-file', methods=["POST"])
 def upload_file():

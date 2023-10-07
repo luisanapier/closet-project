@@ -4,8 +4,8 @@
 
 {% block body %}
 <div id="create-outfit-form">
-    <h1>Let's create an outfit! </h1>
     <form id="create-outfit" action="/create-outfit" method="POST">
+        <h2>Let's create an outfit! </h2>
         <div class="create_outfit">
         <label for="user_occasion">What's the occasion? </label>
         <select id="user_occasion" name="user_occasion" required>
@@ -27,12 +27,14 @@
         </select>
         <label for="add-color">Color: </label>
         <input id="add-color" type="text" name="add-color">
+        <div>
         <input id="user_wants_hat" type="checkbox" name="user_wants_hat">
         <label for="user_wants_hat">Include Hats</label>
         <input id="user_wants_bags" type="checkbox" name="user_wants_bags">
         <label for="user_wants_bags">Include Bags</label>
         <input id="user_wants_glasses" type="checkbox" name="user_wants_glasses">
         <label for="user_wants_glasses">Include Glasses</label>
+        </div>
         </div>
         <div class="create_outfit">
         <label for="type-outfit">Please choose how you would like to build an outfit: </label>
@@ -45,11 +47,11 @@
         <div>
         <label for="outfit_title">What title would you like to give to this outfit? </label>
         <input id="outfit_title" type="text" name="outfit_title" required>
-        </div>
         <p>
-        <button id="generate_outfit" type="submit">Create outfit</button>
-        <input type="button" value="Try another option" id="generate-other-outfit-button" style="display:none"/> 
+            <button class="buttons" id="generate_outfit" type="submit">CREATE OUTFIT</button>
+            <input class="buttons" type="button" value="Try another option" id="generate-other-outfit-button" style="display:none"/> 
         </p>
+        </div>
     </form>
 </div>
 

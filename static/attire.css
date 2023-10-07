@@ -1,0 +1,99 @@
+body {
+    font-family: 'Playfair Display', serif;
+    font-size: small;
+}
+
+#title {
+    font-family: 'Playfair Display', serif;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#navbar-icon {
+    display: flex;
+    flex-direction: row;
+    color: black;
+
+}
+
+.buttons {
+    font-family: 'Playfair Display', serif;
+    background-color: black;
+    color: white;
+    text-align: center;
+    display: inline-block;
+    font-size: 12px;
+    padding: 10px 26px;
+    margin: 20px;
+}
+
+/* .container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-rows: repeat(autofill, 300px);
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+    background-color: transparent;
+} */
+
+.column {
+    flex: 100%;
+    max-width: 100%;
+    padding: 4px;
+}
+
+
+#register-form {
+    font-family: 'Playfair Display', serif;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+#login-form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 60px;
+}   
+
+#upload-file {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#create-outfit {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 60px;
+}
+
+#outfit-viewer {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+}
+
+#favorite-outfit {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 35%;
+    margin: 60px;
+}
+

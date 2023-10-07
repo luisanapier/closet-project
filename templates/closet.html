@@ -1,24 +1,33 @@
 {% extends 'base.html' %}
 
-    {% block title %} {{ name }}'s closet {% endblock %} 
+    {% block title %} {{ session["user"]['name'] }}'s closet {% endblock %} 
 
 {% block body %}
 
-    <h1>See everything that's in your closet:</h1>
+    <h2>See everything that's in your closet:</h2>
     <div id="articles">
         {% for article_item in article_items %}
-           <img width="200px" src="{{ article_item.resource_url }}"/>
+           <img class="column" width="200px" src="{{ article_item.resource_url }}"/>
         {% endfor %}
     </div>
 
 
-    <form action="/upload-file" method="post" enctype="multipart/form-data">
-        <p> Add more pieces! </p>
+    <form id="upload-file" action="/upload-file" method="post" enctype="multipart/form-data">
+        <h3> Add more pieces! </h3>
         <div>
         <label for="additem">Select a file: </label>
         <input type="file" id="additem" name="additem" multiple/>
         </div>
         <div id="new_item_info">
+            <label for="color_primary">Primary color: </label>
+            <input id="color_primary" type="text" name="color_primary" required/>
+            
+            <label for="color_sec">Secondary color: </label>
+            <input id="color_sec" type="text" name="color_sec"/>
+            
+            <label for="pattern">Pattern: </label>
+            <input id="pattern" type="text" name="pattern"/><br>
+            
             <label for="type">Type: </label>
             <select id="type" name="type" required>
                 <option value="shirt">shirt</option>
@@ -32,15 +41,6 @@
                 <option value="bag">bag</option>
                 <option value="glasses">glasses</option>
             </select>
-            <label for="color_primary">Primary color: </label>
-            <input id="color_primary" type="text" name="color_primary" required/>
-
-            <label for="color_sec">Secondary color: </label>
-            <input id="color_sec" type="text" name="color_sec"/>
-
-            <label for="pattern">Pattern: </label>
-            <input id="pattern" type="text" name="pattern"/>
-
             <label for="occasion">Occasion: </label>
             <select id="occasion" name="occasion" required>
                 <option value="everyday">everyday</option>
@@ -56,12 +56,14 @@
                 <option value="fall">fall</option>
                 <option value="winter">winter</option>
                 <option value="all">all</option> 
-            </select>   
-        <input type="submit"> 
+            </select>
+        <div>
+        <input class="buttons" type="submit"> 
+        </div> 
+        </div>
+        <div id="build-outfit">
+            <p><a href="/create-outfit">Create outfit >> </a></p>
         </div>
     </form>
-    <div id="build-outfit">
-        <p><a href="/create-outfit">Create outfit.</a></p>
-    </div>
 
 {% endblock %}

@@ -2,37 +2,47 @@
 
     {% block title %} Attire Closet {% endblock %}
 
-{% block body %}
+{% block body %} 
+    <style>
+        body { background-image: url(https://images.unsplash.com/photo-1665815844395-06f64f44b5e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80);
+            background-size: auto;
+        }
+    </style>
 
-    <h1>Welcome!</h1>
-    
-    <form action="/register", method="POST">
+    <form id="register-form" action="/register", method="POST">
+    <h2>Welcome!</h2>
     <div id="create_account">
         <p>Create an account</p>
-        <label for="username">Username: </label>
-        <input id="username" type="text" name="username" required/>
-        <label for="name">Name: </label>
+        <p>Please fill in the information below:</p>
+        <label for="name">Name: </label><br>
         <input id="name" type="text" name="name" required/>
-        <label for="email">Email: </label>
+        <br>
+        <label for="username">Username: </label><br>
+        <input id="username" type="text" name="username" required/>
+        <br>
+        <label class="col-xs-offset-2" for="email">Email: </label><br>
         <input id="email" type="text" name="email" required/>
-        <label for="password">Password: </label>
-        <input id="password" type="text" name="password" required/>
-
-        <button id="signup" type="submit">Create account</button>
+        <br>
+        <label for="password">Password: </label><br>
+        <input id="password" type="password" name="password" required/>
+        <div>
+        <button class="buttons" id="signup" type="submit">CREATE ACCOUNT</button>
+        </div>
+        <div id="login">
+            <p>If you already have an account, <a href="/login">log in.</a></p>
+        </div>
     </div>
     </form>
     
-    <div id="login">
-        <p>If you already have an account, <a href="/login">log in.</a></p>
-    </div>
 
-    <form action="/login">
+    <!-- <form id="login-form" action="/login">
         <p>Log in</p>
         <label for="username">Username: </label>
         <input id="username" type="text" name="username" required/>
         <label for="password">Password: </label>
         <input id="password" type="text" name="password" required/>
-
-        <button id="login" type="submit">Log in</button>
-    </form>
+        <div>
+        <button class="buttons" id="login" type="submit">LOG IN</button>
+        </div>
+    </form> -->
 {% endblock %}
