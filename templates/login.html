@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+    {% block title %} Attire Closet {% endblock %}
+
+
+{% block body %}
+    <style>
+        body { background-image: url(https://images.unsplash.com/photo-1665815844395-06f64f44b5e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80);
+            background-size: auto;
+        }
+    </style>
+
+    <form id="login-form" action="/login" method="POST">
+        <div>
+        <p>Log in to your account</p>
+        <label for="username">Username: </label>
+        <input id="username" type="text" name="username" required/><br>
+        <label for="password">Password: </label>
+        <input id="password" type="password" name="password" required/>
+        </div>
+        <div>
+        <button class="buttons" id="login" type="submit">LOG IN</button>
+        </div>
+    </form>
+
+{% endblock %}
