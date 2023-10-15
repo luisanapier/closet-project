@@ -9,10 +9,10 @@ Attire was created by Luisa Napier. See more about the developer on [Linkedin](h
 ## Features
 
 - User sign up. Creates a new account.
-    ![alt text](https://github.com/luisanapier/closet-project/static/Welcome-page.png)
+    ![alt text](https://github.com/luisanapier/closet-project/blob/main/static/Welcome-page.png)
 
 - User log in. Username and passwords are checked if matches with an account from the user database.
--  ![alt text](https://github.com/luisanapier/closet-project/static/Log-in-page.png)
+-  ![alt text](https://github.com/luisanapier/closet-project/blob/main/static/Log-in-page.png)
 
 -  Upload new files. To upload a new piece and store in user database, it's required the input of type to specify if it's a shirt, pants, skirt, dress, shoes or accessorie, a primary color or predominant color, occasion and season. Another non-required keywords are secondary color and pattern. The file then will be stored in the user database and displayed in their closet.
 ![alt text](https://github.com/luisanapier/closet-project/blob/main/static/Closet.png)
