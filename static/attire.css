@@ -9,7 +9,7 @@ body {
 
 .navbar {
     display: flex;
-    flex-direction: row;
+    align-items: center;
     justify-content: center;
 }
 
@@ -17,7 +17,15 @@ body {
     display: flex;
     flex-direction: row;
     color: black;
+    margin-right: 0px;
 
+}
+
+.text-center {
+    text-align: left;
+    align-items: center;
+    margin: auto;
+    font-size: 15px;
 }
 
 .buttons {
@@ -30,17 +38,6 @@ body {
     padding: 10px 26px;
     margin: 20px;
 }
-
-/* .container {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    grid-template-rows: repeat(autofill, 300px);
-    height: 100%;
-    align-items: center;
-    justify-content: space-between;
-    background-color: transparent;
-} */
 
 .column {
     flex: 100%;
@@ -67,6 +64,7 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     margin: 60px;
+    font-size: 14px;
 }   
 
 #upload-file {
@@ -79,7 +77,8 @@ body {
     display: flex;
     flex-direction: column;
     text-align: center;
-    margin: 60px;
+    margin: 6px;
+    padding: 10px;
 }
 
 #outfit-viewer {
@@ -87,13 +86,44 @@ body {
     flex-direction: column;
     text-align: center;
     justify-content: center;
+    margin-bottom: 50px;
 }
 
 #favorite-outfit {
     display: flex;
     flex-direction: column;
     text-align: center;
-    width: 35%;
-    margin: 60px;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
 }
 
+#favorite-outfits {
+    display: block;
+    background-color: transparent;
+    margin: 50px;
+}
+
+h2 {
+    font-size: 2rem;
+    margin: 20px;
+}
+
+input.upload-file {
+    border: none;
+    border-bottom: 2px solid black;
+}
+
+#new_item_info {
+    margin: 5px;
+    font-size: 14px;
+}
+
+#dropdown-items {
+    margin: 8px;
+}
+
+.create_outfit {
+    margin: 2px;
+    font-size: 14px;
+}

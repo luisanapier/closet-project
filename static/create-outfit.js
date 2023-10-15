@@ -3,13 +3,9 @@
 const createOutfitButton = document.querySelector("#generate_outfit");
 createOutfitButton.addEventListener('click', handleClick);
 
-const generateAnotherOutfitButton = document.querySelector('input#generate-other-outfit-button');
-generateAnotherOutfitButton.addEventListener('click', handleClick);
 
 function handleClick(evt) {
     evt.preventDefault();
-    
-    
     
     const formInputs = {
         occasion: document.querySelector('#user_occasion').value,
@@ -31,6 +27,7 @@ function handleClick(evt) {
     })
     .then((response) => response.json())
     .then((responseJson) => {
+        createOutfitButton.innerHTML = "Try another option";
         
         document.querySelector('#outfit-viewer').innerHTML = '';
         
@@ -49,11 +46,7 @@ function handleClick(evt) {
                 );
             });
             
-            createOutfitButton.innerHTML == "Try another option";
             
-            document.querySelector('input#generate-other-outfit-button').style.display = "block";
-            // // If you want to remove the form when results are shown
-            // document.querySelector('#create-outfit-form').style.display = 'none';
             let favoriteOutfitButton = document.querySelector('#favorite-outfit-button');
             if (!favoriteOutfitButton) {
                 document.querySelector('#outfit-viewer').insertAdjacentHTML(

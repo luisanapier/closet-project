@@ -7,7 +7,7 @@ import os
 import cloudinary
 import random
 
-
+"""Cloudinary API"""
 CLOUDINARY_KEY = "672335896611927"
 CLOUDINARY_SECRET = "wijc7z2ohAnkXMwj6yZY8FbpNv0"
 CLOUD_NAME = "drf73nnrz"
@@ -20,8 +20,8 @@ cloudinary.config(
     api_key = CLOUDINARY_KEY,
     api_secret = CLOUDINARY_SECRET,
     secure = True
-
 )
+
 import cloudinary.uploader
 import cloudinary.api
 
@@ -42,6 +42,8 @@ ARTICLE_ORDER = {
 
 @app.route('/')
 def homepage():
+    """Show homepage"""
+
     if "user" in session:
         return redirect("/closet")
     else:
@@ -50,6 +52,7 @@ def homepage():
 
 @app.route('/register', methods=["POST"])
 def register():
+    """New user registration, it takes in username, name, email and password and commits to database"""
 
     username = request.form.get("username")
     name = request.form.get("name")
@@ -72,18 +75,16 @@ def register():
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
+    """Check if user is registered and directs to closet"""
 
     if request.method == "GET":
         return render_template("login.html")
+    
 
     username = request.form.get("username")
     password = request.form.get("password")
-    print(username, password)
-    print("*********************")
 
     user = crud.check_user(username) 
-    print(user)
-    print("&&&&&&&&&&&")
     
     if user:
         if password == user.password:
@@ -91,7 +92,7 @@ def login():
                 'id': user.user_id,
                 'name': user.name
             }
-            return redirect("/closet")
+            return redirect('/closet')
         else:
             return redirect('/login')
     else:
@@ -100,6 +101,8 @@ def login():
 
 @app.route('/upload-file', methods=["POST"])
 def upload_file():
+    """Add new files to closet and database"""
+
     file = request.files['additem'] 
     result = cloudinary.uploader.upload(file,
                         api_key=CLOUDINARY_KEY,
@@ -125,6 +128,7 @@ def upload_file():
 
 @app.route('/closet')
 def view_closet():
+    """Show users file in storage"""
     user_in_session()
     
     user = session["user"] # = {'id': 1, 'name': 'Luisa'}
@@ -134,6 +138,7 @@ def view_closet():
 
 @app.route('/create-outfit', methods=["GET", "POST"])
 def build_an_outfit():
+
     if request.method == "GET":
         return render_template('create-outfit.html')
 
@@ -144,6 +149,8 @@ def build_an_outfit():
 
 @app.route('/view_outfit', methods=['POST'])
 def show_outfit():
+    """Take input from users and query their database of articles to generate different outfit options."""
+
     user_in_session()
 
     if request.method == "GET":
@@ -300,6 +307,8 @@ def get_elements():
 
 @app.route('/favorites', methods=["GET","POST"])
 def show_favorites():
+    """Show users favorite outfits"""
+
     query_favorites = UserFavorites.query.filter(UserFavorites.user_id==session['user']['id']).all()
 
     fav_dict = {}
@@ -312,8 +321,9 @@ def show_favorites():
     return render_template('favorites.html', fav_dict=fav_dict)
 
 
-
 def user_in_session():
+    """Check if user in session. """
+
     if "user" not in session:
         return redirect("/")
     

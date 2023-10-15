@@ -7,7 +7,7 @@
     <h2>See everything that's in your closet:</h2>
     <div id="articles">
         {% for article_item in article_items %}
-           <img class="column" width="200px" src="{{ article_item.resource_url }}"/>
+           <img class="column"width="200px" src="{{ article_item.resource_url }}"/>
         {% endfor %}
     </div>
 
@@ -28,6 +28,7 @@
             <label for="pattern">Pattern: </label>
             <input id="pattern" type="text" name="pattern"/><br>
             
+            <div id="dropdown-items">
             <label for="type">Type: </label>
             <select id="type" name="type" required>
                 <option value="shirt">shirt</option>
@@ -57,6 +58,7 @@
                 <option value="winter">winter</option>
                 <option value="all">all</option> 
             </select>
+            </div>
         <div>
         <input class="buttons" type="submit"> 
         </div> 

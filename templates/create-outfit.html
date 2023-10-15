@@ -3,6 +3,7 @@
     {% block title %} Create outfit {% endblock %}
 
 {% block body %}
+
 <div id="create-outfit-form">
     <form id="create-outfit" action="/create-outfit" method="POST">
         <h2>Let's create an outfit! </h2>
@@ -27,7 +28,7 @@
         </select>
         <label for="add-color">Color: </label>
         <input id="add-color" type="text" name="add-color">
-        <div>
+        <div class="create_outfit">
         <input id="user_wants_hat" type="checkbox" name="user_wants_hat">
         <label for="user_wants_hat">Include Hats</label>
         <input id="user_wants_bags" type="checkbox" name="user_wants_bags">
@@ -44,7 +45,7 @@
             <option value="dress">Dress</option>
         </select>
         </div>
-        <div>
+        <div class="create_outfit">
         <label for="outfit_title">What title would you like to give to this outfit? </label>
         <input id="outfit_title" type="text" name="outfit_title" required>
         <p>
