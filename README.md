@@ -45,6 +45,46 @@ Attire The Closet used this programming languages and tools to work properly:
 
 And of course Attire itself is open source with a [public repository](https://github.com/luisanapier/closet-project) on GitHub.
 
+## Setup/Installation ⌨️
+To have this app running on your local computer, please follow the below steps:
+
+Clone repository:
+```python
+$ git clone https://github.com/luisanapier/closet-project.git
+```
+Create a virtual envinroment:
+```python
+$ virtualenv env
+```
+Activate the virtual envinroment:
+```python
+$ source env/bin/activate
+```
+Download dependencies:
+```python
+$ pip install -r requirements.txt
+```
+Get your own Cloudinary secret keys. Save them on your secrets.sh and your file should look something like this: 
+```python
+CLOUDINARY_KEY = "abc"
+CLOUDINARY_SECRET = "xyz"
+CLOUD_NAME = "qwe"
+```
+Set up the database:
+```python
+$ createdb attires
+$ python -i model.py
+
+>>> db.create_all()
+```
+
+Run the app:
+```python
+python3 server.py
+```
+
+You can now navigate to 'localhost:5000/' to access Attire The Closet.
+
 ## For version 2.0
 
 - Password hashing: Passwords will be hashed before being saved to the database
